@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – Uni-Connect Westminster</title>
+
+  <style>
+    :root { --primary:#8b35f7; --bg:#f9fafb; --text:#111827; --muted:#6b7280; }
+    body{margin:0;font-family:Inter,-apple-system,sans-serif;background:var(--bg);min-height:100vh;display:flex;flex-direction:column;}
+    .navbar{background:#fff;padding:15px 40px;border-bottom:1px solid #eee;font-weight:800;display:flex;gap:10px;align-items:center;}
+    .logo{background:var(--primary);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:40px;}
+    .card{background:#fff;padding:40px;border-radius:20px;width:100%;max-width:420px;box-shadow:0 10px 25px rgba(0,0,0,.06);text-align:center;}
+    h1{margin:0 0 10px;color:var(--text)}
+    p{margin:0 0 25px;color:var(--muted);font-size:14px}
+    .group{text-align:left;margin-bottom:14px}
+    label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+    input{width:100%;padding:12px;border:1px solid #e5e7eb;border-radius:10px;font-size:14px}
+    button{width:100%;margin-top:12px;padding:12px;border:none;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;cursor:pointer}
+    #msg{margin-top:14px;color:#b91c1c;font-weight:800;font-size:14px}
+    .footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .footer a{color:var(--primary);font-weight:800;text-decoration:none}
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo">U</div>
+    Uni-Connect Westminster
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <h1>Welcome Back</h1>
+      <p>Sign in using your university account</p>
+
+      <form id="loginForm" autocomplete="on">
+        <div class="group">
+          <label>Email</label>
+          <input id="email" type="email" placeholder="name@westminster.ac.uk" required />
+        </div>
+
+        <div class="group">
+          <label>Password</label>
+          <input id="password" type="password" placeholder="Enter your password" required />
+        </div>
+
+        <button type="submit">Log in</button>
+        <div id="msg"></div>
+      </form>
+
+      <div class="footer">
+        Don’t have an account? <a href="/register">Create an account</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 🔥 INLINE login so the page never "just reloads"
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const msg = document.getElementById("msg");
+      msg.textContent = "";
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          msg.textContent = data.message || "Login failed";
+          return;
+        }
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        window.location.href = "/dashboard";
+      } catch (err) {
+        msg.textContent = "Server/network error";
+      }
+    });
+  </script>
+</body>
+</html>

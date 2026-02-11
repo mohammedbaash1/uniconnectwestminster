@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Uni-Connect Westminster</title>
+    <style>
+        :root {
+            --primary: #8b35f7;
+            --bg: #f9fafb;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --blue: #3b82f6;
+            --green: #10b981;
+            --orange: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: white;
+            padding: 15px 40px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .btn-logout {
+            background: #f3f4f6;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .welcome-section {
+            margin-bottom: 40px;
+        }
+
+        .welcome-section h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .welcome-section p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* GRID */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .icon-wrapper {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .explore-text {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* CARD COLORS */
+        .blue .icon-wrapper { background: #eff6ff; color: var(--blue); }
+        .green .icon-wrapper { background: #ecfdf5; color: var(--green); }
+        .purple .icon-wrapper { background: #f5f3ff; color: var(--primary); }
+        .orange .icon-wrapper { background: #fffbeb; color: var(--orange); }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">U</div>
+            Uni-Connect Westminster
+        </div>
+        <button id="logoutBtn" class="btn-logout">Logout</button>
+    </nav>
+
+    <main class="container">
+        <div class="welcome-section">
+            <h1 id="welcomeUser">Welcome Back!</h1>
+            <p>Explore resources and connect with your university community</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <a href="/jobs" class="card blue">
+                <div class="icon-wrapper">💼</div>
+                <h3>Student Jobs Finder</h3>
+                <p>Find part-time jobs and internships tailored for students</p>
+                <span class="explore-text">Explore →</span>
+            </a>
+
+            <a href="/accommodation" class="card green">
+                <div class="icon-wrapper">🏠</div>
+                <h3>Accommodation Browser</h3>
+                <p>Discover student-friendly housing options near your campus</p>
+                <span class="explore-text">Explore →</span>
+            </a>
+
+            <a href="/communities" class="card purple">
+                <div class="icon-wrapper">👥</div>
+                <h3>Find Your Community</h3>
+                <p>Join clubs, societies, and meet fellow students with similar interests</p>
+                <span class="explore-text">Explore →</span>
+            </a>
+
+            <a href="#" class="card orange">
+                <div class="icon-wrapper">🔖</div>
+                <h3>Saved Items</h3>
+                <p>Access your bookmarked jobs, housing, and community events</p>
+                <span class="explore-text">Explore →</span>
+            </a>
+        </div>
+    </main>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
